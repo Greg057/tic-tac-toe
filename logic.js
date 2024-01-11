@@ -19,31 +19,44 @@ const Gameboard = () => {
         }
     }
 
-    const PutSymbol = (row, column, symbol) => {
-        gameboard[row-1][column-1] = symbol;
-        console.log(gameboard);
+    const PutSymbol = (symbol) => {
+        const row = prompt("which row to put your symbol? ");
+        const column = prompt("which column to put your symbol? ");
+        if (gameboard[row-1][column-1] != "X" && gameboard[row-1][column-1] != "O") {
+            gameboard[row-1][column-1] = symbol;
+            console.log(gameboard);
+            return false;
+        }
+        else {
+            console.log("spot already taken, try again");
+            return true;
+        }
+            
+        
     }
 
-    
-    return { gameboard, PutSymbol }
-    
+    return { gameboard, PutSymbol };
 }
 
 const Game = () => {
     const board = Gameboard();
     const player1 = Player("Player 1", "X");
     const player2 = Player("Player 2", "O");
-
     let activePlayer = player1;
+    let round = 0;
 
     const PlayRound = () => {
-        const row = prompt("which row to put your symbol? ");
-        const column = prompt("which column to put your symbol? ");
-        board.PutSymbol(row, column, activePlayer.symbol);
+        round++;
+        while(board.PutSymbol(activePlayer.symbol)) {
+            board.PutSymbol(activePlayer.symbol);
+        }
         if(CheckWin(activePlayer.symbol) == true) {
             console.log(`Game done, ${activePlayer.name} wins!`);
             return activePlayer.WinPoints();
         };
+        if (round === 9) {
+            return console.log(`Game done, this is a tie!`);
+        }
         SwitchActivePlayer();
         PlayRound();
     }
@@ -72,4 +85,4 @@ const Game = () => {
     PlayRound();
 }
 
-const game = Game(); 
+Game(); 

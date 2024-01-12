@@ -79,6 +79,8 @@ const Game = () => {
             cell.disabled = false;
             activePlayer = player1;
             round = 0;
+            winner.textContent = "";
+            showPoints.textContent = "";
         });
 
     });

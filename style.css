@@ -1,0 +1,17 @@
+
+body {
+    display: flex;
+    justify-content: center;
+    font-family: Poppins;
+}
+
+.game {
+    margin: 72px;
+    display: grid;
+    grid-template: repeat(3, 100px) / repeat(3, 100px);
+    gap: 2px;
+}
+
+.cell {
+    background-color: grey;
+}
